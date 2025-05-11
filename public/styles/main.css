@@ -1,0 +1,213 @@
+h1 {
+  font-size: 3.5rem;
+  font-family: 'Dancing Script', cursive;
+}
+
+body{
+  background-color: #F8F8E1;
+}
+
+.centered-text {
+  display: flex;
+  justify-content: center;   /* horizontal center */
+  align-items: center;       /* vertical center */
+  height: 100vh;             /* full viewport height */
+  text-align: center;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+  width: 70px;
+  height: 50px;
+  background: #ccc;
+  border-radius: 25%;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  
+}
+
+.nav-links a {
+  text-decoration: none;
+  color:black;
+  font-weight: 400;
+}
+
+h3 {
+  text-decoration: none;
+  color:black;
+  font-weight: 400;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  color: #000;
+  font-weight: 600;
+}
+
+
+/* create a post */
+.compose-container {
+  max-width: 700px;
+  margin: 80px auto;
+  padding: 40px;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.compose-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.compose-container input,
+.compose-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: vertical;
+}
+
+.compose-container button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  background-color: #FF90BB;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.compose-container button:hover {
+  background-color: #FFC1DA;
+}
+
+/* posts */
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  align-items: start;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  height: auto;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.card p {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.card a {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.delete-btn {
+  margin-top: auto;  /* Push the button to the bottom */
+  background-color: #FF90BB;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  align-self: center; /* Center the button horizontally */
+}
+
+.edit-btn {
+  margin-top: auto;  /* Push the button to the bottom */
+  background-color: #FF90BB;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  align-self: center; /* Center the button horizontally */
+}
+
+.update-btn {
+  margin-top: auto;  /* Push the button to the bottom */
+  background-color: #FF90BB;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  align-self: center; /* Center the button horizontally */
+  margin-left: 110px;
+}
+
+.close-btn {
+  margin-top: auto;  /* Push the button to the bottom */
+  background-color: #FF90BB;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  align-self: center; /* Center the button horizontally */
+  margin-left: 110px;
+}
+
+.delete-btn:hover {
+  background-color: #FFC1DA;
+}
+
+.update-btn:hover {
+  background-color: #FFC1DA;
+}
+

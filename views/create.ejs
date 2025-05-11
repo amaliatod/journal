@@ -1,0 +1,20 @@
+<%- include('partials/header') %>
+
+
+
+<div class="compose-container">
+    <% if (locals.title && locals.content){ %>
+        <h1>Your page was added to the journal! Write another one:</h1>
+        <% } 
+        else { %>
+            <h1>Create a new journal page</h1>
+            <% } %>
+                <form action="/post" method="POST">
+                    <input type="text" name="title" placeholder="Page Title" required>
+                    <textarea name="content" placeholder="Write your thoughts here..." rows="10"
+                        required></textarea>
+                    <button type="submit">Add</button>
+                </form>
+</div>
+
+<%- include('partials/footer') %>

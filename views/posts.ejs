@@ -1,0 +1,141 @@
+<%- include("partials/header.ejs") %>
+
+  <div class="centered-text">
+    <h1> Here is a safe place for writing your thoughts </h1>
+  </div>
+
+  <div class="container">
+    <h1>Your Journal Pages</h1>
+    <div class="cards">
+      <% posts.forEach(function(post) { %>
+        <div class="card" data-id="<%= post.id %>">
+          <h2 class="post-title"><%= post.title %></h2>
+          <p class="post-content"><%= post.content%></p>
+          <button class="delete-btn" data-id="<%= post.id %>">Delete</button>
+          <button class="update-btn" data-id="<%= post.id %>">Update</button>
+         
+        </div>
+        <% });%>
+    </div>
+  </div>
+
+
+  <!-- Overlay -->
+  <div id="overlay"
+    style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:99;">
+  </div>
+
+  <!-- pop up -->
+  <div id="updateModal"
+    style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%); background:#fff; padding:20px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.2); z-index:100;">
+    <h3>Update the page</h3>
+    <form id="updateForm">
+      <input type="text" id="updateTitle" required><br><br>
+      <textarea id="updateContent" rows="4" required></textarea><br><br>
+      <input type="hidden" id="updatePostId">
+      <button class="edit-btn" type="submit">Update</button>
+      <button class="close-btn" type="button" onclick="closeModal()">Anulează</button>
+    </form>
+  </div>
+
+
+
+  <script>
+
+
+    function closeModal() {
+      document.getElementById('updateModal').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      //ia toate elementele care au clasa ".delete-btn" si ".update-btn"
+      const buttons = document.querySelectorAll('.delete-btn');
+      const buttons_upd = document.querySelectorAll('.update-btn');
+
+      // selectezi elementele formului pop up pentru editarea postarii
+      const modal = document.getElementById('updateModal');
+      const overlay = document.getElementById('overlay');
+      const form = document.getElementById('updateForm');
+
+
+      //pentru fiecare element seteaza daca a fost apasat butonul de delete al cardul respectiv care il contine si il sterge 
+      buttons.forEach(button => {
+        button.addEventListener('click', function () {
+          const card = button.closest('.card'); // cel mai apropiat obiect de acel buton care are clasa "card"
+          const postId = button.getAttribute('data-id');  // id-ul cardului
+
+          fetch(`/posts/${postId}`, { // comunica cu serverul(express.js) ; face o cerere de stergere catre ruta /posts/id
+            method: 'DELETE'
+          })
+            .then(res => {
+              if (res.ok) {
+                card.remove(); // daca este comunicat ca postarea a fost stearsa cu succes din array ul de pe server o sterge din pagina
+              } else {
+                console.error("Eroare la ștergere pe server.");
+              }
+            })
+            .catch(err => {
+              console.error("Eroare fetch:", err);
+            });
+        });
+      });
+
+      buttons_upd.forEach(button_upd => {
+        button_upd.addEventListener('click', function () {
+          const card = button_upd.closest('.card');
+          const postId = card.getAttribute('data-id');  // id-ul cardului
+          console.log(postId);
+          const title = card.querySelector('.post-title').textContent;
+          const content = card.querySelector('.post-content').textContent;
+
+          document.getElementById('updateTitle').value = title;  //iei elementele din form si pui in ele titlul si continutul postarii pe care vrei sa o editezi
+          document.getElementById('updateContent').value = content;
+          document.getElementById('updatePostId').value = postId;
+
+
+          modal.style.display = 'block';
+          overlay.style.display = 'block';
+        });
+      });
+
+
+      document.getElementById('updateForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        //ia elementele modificate
+        const id = document.getElementById('updatePostId').value;
+        const title = document.getElementById('updateTitle').value;
+        const content = document.getElementById('updateContent').value;
+
+        console.log("before update:", id, title, content);
+
+        // trimite un request de patch catre server cu titlul si continutul modificarii 
+        fetch(`/api/posts/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, content })
+        })
+          .then(response => {
+            if (response.ok) {
+              const card = document.querySelector(`.card[data-id="${id}"]`);
+              //pune modificarile in card
+              card.querySelector('.post-title').textContent = title;
+              card.querySelector('.post-content').textContent = content;
+              closeModal();
+            } else {
+              alert('Eroare la actualizare.');
+            }
+          });
+      });
+    });
+
+  </script>
+
+
+
+
+
+
+  <%- include("partials/footer.ejs") %>

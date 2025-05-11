@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Add the link to the CSS stylesheet here -->
+  <!-- Hint: the link is relative to the public folder -->
+  <link rel="stylesheet" href="/styles/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+
+
+  <title>My Blog</title>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div>
+      <img src="/images/logo.jpg" class="logo">
+    </div>
+    <ul class="nav-links">
+      <% if(locals.page){ %>
+      <li><a href="/posts" class="<%= page === 'posts' ? 'active' : '' %>">Pages</a></li>
+      <li><a href="/create" class="<%= page === 'create' ? 'active' : '' %>">Write a page</a></li>
+    </ul>
+    <% } %>
+  </nav>
+
+</body>
+</html>
